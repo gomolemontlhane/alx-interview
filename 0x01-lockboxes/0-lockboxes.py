@@ -1,15 +1,27 @@
 #!/usr/bin/python3
+"""
+This method determines if all the boxes in a given list of lists can be unlocked.
+
+- The function starts with the first box unlocked and uses the keys found inside
+  to unlock additional boxes.
+- Returns True if all boxes can be unlocked, otherwise returns False.
+"""
+
 def canUnlockAll(boxes):
-    n = len(boxes)  # Total number of boxes
-    unlocked = [False] * n  # List to track unlocked boxes
-    unlocked[0] = True  # Box 0 is initially unlocked
-    keys = [0]  # Start with the key to the first box
+    n = len(boxes)  # Number of boxes
+    unlocked = [False] * n  # List to track which boxes have been unlocked
+    unlocked[0] = True  # The first box is always unlocked
     
-    while keys:
-        current_box = keys.pop()  # Get the key to the current box
-        for key in boxes[current_box]:  # Explore all keys in the current box
-            if key < n and not unlocked[key]:  # Check if the key opens a new box
-                unlocked[key] = True  # Mark the box as unlocked
-                keys.append(key)  # Add the key to the list to explore further
+    to_explore = [0]  # Initialize with the first box (index 0)
     
-    return all(unlocked)  # Return True if all boxes are unlocked
+    while to_explore:
+        box = to_explore.pop()  # Get the current box to explore its keys
+        
+        # Check all keys in the current box
+        for key in boxes[box]:
+            if key < n and not unlocked[key]:  # If the key opens a new box
+                unlocked[key] = True  # Unlock that box
+                to_explore.append(key)  # Add the newly unlocked box for further exploration
+    
+    # If all boxes are unlocked, return True; otherwise, return False
+    return all(unlocked)
