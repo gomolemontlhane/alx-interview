@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-This method determines if all the boxes in a given list of lists can be unlocked.
+This method determines if all the boxes in a given
+list of lists can be unlocked.
 
 - The function starts with the first box unlocked and uses the keys found inside
   to unlock additional boxes.
@@ -21,7 +22,7 @@ def canUnlockAll(boxes):
         for key in boxes[box]:
             if key < n and not unlocked[key]:  # If the key opens a new box
                 unlocked[key] = True  # Unlock that box
-                to_explore.append(key)  # Add the newly unlocked box for further exploration
+                to_explore.append(key)  # Add the newly unlocked box
     
     # If all boxes are unlocked, return True; otherwise, return False
     return all(unlocked)
