@@ -1,16 +1,20 @@
 #!/usr/bin/python3
-def minOperations(n):
-    if n <= 1:
-        return 0
-    
-    operations = 0
-    divisor = 2
+"""
+Contains a method that calculates the fewest number of operations
+needed to result in exactly n H characters in the file.
+"""
 
-    # Factorize the number and sum up the prime factors
+
+def minOperations(n):
+    """
+    Returns the fewest number of operations needed to result in exactly
+    n H characters in the file.
+    """
+    operations = 0
+    min_operations = 2
     while n > 1:
-        while n % divisor == 0:
-            operations += divisor
-            n //= divisor
-        divisor += 1
-    
+        while n % min_operations == 0:
+            operations += min_operations
+            n /= min_operations
+        min_operations += 1
     return operations
