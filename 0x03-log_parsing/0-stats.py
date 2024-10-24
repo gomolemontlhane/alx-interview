@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import sys
 
+
 def print_stats(file_size, status_codes):
     """
     Prints the file size and the number of occurrences for each status code.
@@ -9,6 +10,7 @@ def print_stats(file_size, status_codes):
     for code in sorted(status_codes.keys()):
         if status_codes[code] > 0:
             print(f"{code}: {status_codes[code]}")
+
 
 # Initialize variables
 file_size = 0
@@ -22,14 +24,14 @@ try:
             parts = line.split()
             status_code = int(parts[-2])
             size = int(parts[-1])
-            
+
             # Update file size
             file_size += size
-            
+
             # Update status code count if it's valid
             if status_code in status_codes:
                 status_codes[status_code] += 1
-            
+
         except Exception:
             continue  # If the line format is incorrect, skip it
 
