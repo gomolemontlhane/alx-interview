@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import sys
 
+
 def is_safe(board, row, col, N):
     # Check for conflicts with other queens
     for i in range(row):
@@ -9,6 +10,7 @@ def is_safe(board, row, col, N):
            board[i] + i == col + row:
             return False
     return True
+
 
 def solve_nqueens(N, row, board, solutions):
     if row == N:
@@ -19,6 +21,7 @@ def solve_nqueens(N, row, board, solutions):
             if is_safe(board, row, col, N):
                 board[row] = col
                 solve_nqueens(N, row + 1, board, solutions)
+
 
 def main():
     # Validate input
@@ -42,6 +45,7 @@ def main():
     # Print solutions
     for solution in solutions:
         print(solution)
+
 
 if __name__ == "__main__":
     main()
