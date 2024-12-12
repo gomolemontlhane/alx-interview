@@ -1,44 +1,42 @@
 #!/usr/bin/python3
+"""0. Prime Game - Maria and Ben are playing a game"""
+
+
 def isWinner(x, nums):
-    """Determines the winner of each game."""
-    
-    if not nums or x < 1:
+    """x - rounds
+    nums - numbers list
+    """
+    if x <= 0 or nums is None:
+        return None
+    if x != len(nums):
         return None
 
-    # Helper function: Sieve of Eratosthenes
-    def sieve(n):
-        """Generates a list of booleans indicating prime status up to n."""
-        primes = [True] * (n + 1)
-        primes[0] = primes[1] = False
-        for i in range(2, int(n**0.5) + 1):
-            if primes[i]:
-                for j in range(i * i, n + 1, i):
-                    primes[j] = False
-        return primes
+    ben = 0
+    maria = 0
 
-    max_num = max(nums)
-    prime_status = sieve(max_num)  # Precompute primes
-    results = []
+    a = [1 for x in range(sorted(nums)[-1] + 1)]
+    a[0], a[1] = 0, 0
+    for i in range(2, len(a)):
+        rm_multiples(a, i)
 
-    for n in nums:
-        primes_left = set(i for i in range(1, n + 1) if prime_status[i])
-        turn = 0  # 0 for Maria, 1 for Ben
-
-        while primes_left:
-            prime = min(primes_left)
-            primes_left -= set(range(prime, n + 1, prime))
-            turn = 1 - turn  # Switch turn
-        
-        # If turn is 0, Ben wins the round, otherwise Maria wins
-        results.append("Ben" if turn == 0 else "Maria")
-
-    # Count wins for Maria and Ben
-    maria_wins = results.count("Maria")
-    ben_wins = results.count("Ben")
-
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif ben_wins > maria_wins:
+    for i in nums:
+        if sum(a[0:i + 1]) % 2 == 0:
+            ben += 1
+        else:
+            maria += 1
+    if ben > maria:
         return "Ben"
-    else:
-        return None
+    if maria > ben:
+        return "Maria"
+    return None
+
+
+def rm_multiples(ls, x):
+    """removes multiple
+    of primes
+    """
+    for i in range(2, len(ls)):
+        try:
+            ls[i * x] = 0
+        except (ValueError, IndexError):
+            break
